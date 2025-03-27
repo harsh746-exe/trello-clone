@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_bcrypt import Bcrypt
@@ -25,6 +25,11 @@ app.register_blueprint(auth_routes.bp)
 app.register_blueprint(board_routes.bp)
 app.register_blueprint(list_routes.bp)
 app.register_blueprint(card_routes.bp)
+
+# Health check endpoint
+@app.route('/api/health')
+def health_check():
+    return jsonify({'status': 'healthy'})
 
 # Create indexes for better performance
 with app.app_context():
